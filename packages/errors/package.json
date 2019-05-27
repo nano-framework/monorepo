@@ -1,0 +1,41 @@
+{
+  "name": "@nano/errors",
+  "version": "0.0.1",
+  "description": "> TODO: description",
+  "author": "Luis Brito <luiseduardo14@gmail.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://yarn.btcore.app"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf ./dist",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "fast-safe-stringify": "^2.0.6",
+    "triple-beam": "^1.3.0",
+    "winston": "^3.2.1",
+    "winston-transport": "^4.3.0"
+  },
+  "devDependencies": {
+    "@sentry/integrations": "^5.3.1",
+    "@sentry/node": "^5.3.0",
+    "@types/uuid": "^3.4.4"
+  },
+  "peerDependencies": {
+    "@sentry/integrations": "^5.3.1",
+    "@sentry/node": "^5.3.0"
+  },
+  "optionalDependencies": {
+    "clean-stack": "^2.1.0"
+  }
+}
