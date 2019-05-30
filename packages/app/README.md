@@ -1,11 +1,11 @@
-# `server`
+# `app`
 
 > TODO: description
 
 ## Usage
 
 ```
-const server = require('server');
+const app = require('app');
 
 // TODO: DEMONSTRATE API
 ```

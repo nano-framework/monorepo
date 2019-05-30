@@ -2,7 +2,6 @@
   "name": "nano-monorepo",
   "version": "0.0.1",
   "main": "index.js",
-  "private": true,
   "author": "luis@nxtep.io",
   "license": "MIT",
   "scripts": {
