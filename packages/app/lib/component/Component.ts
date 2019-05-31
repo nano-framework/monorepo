@@ -12,7 +12,7 @@ export interface Component {
   /**
    * Handles post mount routines.
    */
-  onMount(app: Application): void;
+  onMount?(app: Application): void;
 
   /**
    * Handles pre initialization routines.
@@ -22,7 +22,7 @@ export interface Component {
   /**
    * Handles post unmount routines.
    */
-  onUnmount(app: Application): void;
+  onUnmount?(app: Application): void;
 
   /**
    * Handles post initialization routines.

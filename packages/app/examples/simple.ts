@@ -1,4 +1,5 @@
 import { Application } from '../lib';
+import { DummyComponent } from './components/DummyComponent';
 import { TimerComponent } from './components/TimerComponent';
 
 /**
@@ -12,5 +13,11 @@ import { TimerComponent } from './components/TimerComponent';
  *   ```
  */
 export class ExampleApplication extends Application {
-  children = [new TimerComponent()]
+  children = [
+    // A dummy component for corner cases unit testing
+    new DummyComponent(),
+
+    // A sample timer component
+    new TimerComponent()
+  ]
 }

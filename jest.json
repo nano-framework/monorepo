@@ -17,6 +17,13 @@
     "json"
   ],
   "testPathIgnorePatterns": [
-    "dist"
+    "tests/util",
+    "node_modules"
+  ],
+  "collectCoverageFrom": [
+    "./packages/**/*.ts",
+    "!./packages/**/*.d.ts",
+    "!./packages/commands/lib/bin.ts",
+    "!<rootDir>/node_modules/"
   ]
 }

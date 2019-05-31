@@ -14,7 +14,7 @@ export class TimerComponent implements Component {
   /* The state variables for the timer */
   timer?: number = undefined;
   interval?: NodeJS.Timeout = undefined;
- 
+
   /**
    * Mounts the timer once the 
    * 
@@ -22,6 +22,14 @@ export class TimerComponent implements Component {
    */
   public onMount(app: Application): void {
     this.start();
+  }
+
+  public async onInit() {
+
+  }
+
+  public async onReady() {
+
   }
 
   /* Runs once the application has been initialized */

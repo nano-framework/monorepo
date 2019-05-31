@@ -7,6 +7,7 @@
   "scripts": {
     "build": "lerna run build",
     "bootstrap": "lerna bootstrap",
+    "prebootstrap": "yarn run -s clean",
     "clean": "lerna run clean",
     "postclean": "lerna clean -y",
     "test": "jest --config jest.json"

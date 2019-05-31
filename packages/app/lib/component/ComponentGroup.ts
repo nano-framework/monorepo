@@ -1,6 +1,6 @@
-import { ComponentOptions, Component } from './Component';
+import { Logger, LoggerInstance, BaseError } from '@nano/errors';
 import { Application } from '../Application';
-import { Logger, LoggerInstance } from '@nano/errors';
+import { Component, ComponentOptions } from './Component';
 
 export interface ComponentGroupOptions extends ComponentOptions {
   children?: Component[];
@@ -11,7 +11,7 @@ export interface ComponentGroupOptions extends ComponentOptions {
  * A higher order component to handle a group of children.
  */
 export default abstract class ComponentGroup implements Component {
-  public children: Component[];
+  public readonly children: Component[];
   public readonly logger: LoggerInstance;
 
   constructor(public options: ComponentGroupOptions = {}) {
@@ -25,7 +25,9 @@ export default abstract class ComponentGroup implements Component {
   public onMount(app: Application): void {
     this.logger.silly(`Mounting ${this.options.name} child components`, this.children.map(c => c.options.name));
     for (let i = 0; i < this.children.length; i += 1) {
-      this.children[i].onMount(app);
+      if (this.children[i].onMount) {
+        this.children[i].onMount(app);
+      }
     }
   }
 
@@ -59,21 +61,9 @@ export default abstract class ComponentGroup implements Component {
   public onUnmount(app: Application): void {
     this.logger.silly(`Unmounting ${this.options.name} child components`, this.children.map(c => c.options.name));
     for (let i = 0; i < this.children.length; i += 1) {
-      this.children[i].onUnmount(app);
+      if (this.children[i].onUnmount) {
+        this.children[i].onUnmount(app);
+      }
     }
-  }
-
-  /**
-   * Gets currently registered components.
-   */
-  public components(): Component[] {
-    return this.children;
-  }
-
-  /**
-   * Register a new component.
-   */
-  public component(component: Component) {
-    return this.children.push(component);
   }
 }
