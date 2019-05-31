@@ -15,7 +15,7 @@ describe("lib.error.BaseError", () => {
     expect(typeof jsonStr).toBe(typeof "string");
   });
 
-  describe("without captureStackTrace", async () => {
+  describe("without captureStackTrace", () => {
     let captureStackTrace;
 
     beforeEach(async () => {
@@ -29,9 +29,7 @@ describe("lib.error.BaseError", () => {
     });
 
     it("should instantiate properly without captureStackTrace", () => {
-      const error = new BaseError("Test", {
-        test: true
-      });
+      const error = new BaseError("Test", { test: true });
 
       expect(error).toHaveProperty("stack");
       expect(error).toHaveProperty("details", { test: true });
@@ -70,9 +68,7 @@ describe("lib.error.BaseError", () => {
     afterAll(() => MockCleanStack.fail(false));
 
     it("should instantiate properly with a failing clean-stack dependency", () => {
-      const error = new BaseError("Test", {
-        test: true
-      });
+      const error = new BaseError("Test", { test: true });
 
       expect(error).toHaveProperty("stack");
       expect(error).toHaveProperty("details", { test: true });

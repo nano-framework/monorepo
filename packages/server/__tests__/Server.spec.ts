@@ -16,6 +16,6 @@ describe('api.MainServer', () => {
 
   it('should not respond on an invalid port', async () => {
     const server = new Server({ port: -1 });
-    expect(server.start()).rejects.toThrow(/ERR_SOCKET_BAD_PORT/ig);
+    await expect(server.start()).rejects.toThrow(/Received -1/ig);
   });
 });

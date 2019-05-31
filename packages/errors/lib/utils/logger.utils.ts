@@ -15,9 +15,9 @@ export const lineFormat = format((info: any) => {
 
   const padding = info.padding && info.padding[info.level] || '';
   if (stringifiedRest !== '{}') {
-    info[MESSAGE] = `${info.level}:${padding} ${info.message} ${stringifiedRest}`;
+    info[MESSAGE] = `${info.level}:${padding} ${info.message}${padding} ${stringifiedRest} `;
   } else {
-    info[MESSAGE] = `${info.level}:${padding} ${info.message}`;
+    info[MESSAGE] = `${info.level}:${padding} ${info.message}${padding} `;
   }
 
   return info;

@@ -1,9 +1,7 @@
 import { Logger, SentryTransport, BaseError } from "../lib";
 
 describe("lib.logger.SentryTransport", () => {
-  beforeEach(() => {
-    (Logger as any).instance = undefined;
-  });
+  beforeEach(() => Logger.setInstance(undefined));
 
   it("should throw if tried to be accessed without proper initialization", async () => {
     const logger = Logger.initialize({

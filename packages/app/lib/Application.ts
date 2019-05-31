@@ -1,5 +1,5 @@
-import { LoggerInstance, Logger } from '@nano/errors';
-import ComponentGroup, { ComponentGroupOptions } from "./component/ComponentGroup";
+import { Logger, LoggerInstance } from '@nano/errors';
+import { ComponentGroup, ComponentGroupOptions } from "./base";
 
 export interface ApplicationOptions extends ComponentGroupOptions {
   logger?: LoggerInstance;

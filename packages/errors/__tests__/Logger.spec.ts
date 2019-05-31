@@ -1,9 +1,7 @@
 import { BaseError, Logger } from "../lib";
 
 describe("lib.logger", () => {
-  beforeEach(() => {
-    (Logger as any).instance = undefined;
-  });
+  beforeEach(() => Logger.setInstance(undefined));
 
   it("should throw if tried to be accessed without proper initialization", async () => {
     expect(() => Logger.getInstance()).toThrow(/initialized yet/gi);
@@ -12,9 +10,9 @@ describe("lib.logger", () => {
   it("ensure only first initialized is kept as singleton", async () => {
     expect(() => Logger.getInstance()).toThrow(/initialized yet/gi);
     Logger.initialize();
-    (Logger as any).instance.flag = true;
+    Logger['instance']['flag'] = true;
     Logger.initialize();
-    expect((Logger as any).instance.flag).toBe(true);
+    expect(Logger['instance']['flag']).toBe(true);
   });
 
   it("should throw if tried to be constructed", async () => {
@@ -73,7 +71,7 @@ describe("lib.logger", () => {
     );
   });
 
-  describe("some corner cases", async () => {
+  describe("some corner cases", () => {
     it("should send simple info object with message", () => {
       Logger.initialize().info({ message: { test: true } });
     });

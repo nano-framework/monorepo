@@ -10,20 +10,29 @@ export interface LoggerOptions extends winston.LoggerOptions {
 // Export the winston.Logger type so we don't need to install the winston types on dependants
 export type LoggerInstance = winston.Logger;
 
+export enum LogLevel {
+  SILLY = 'silly',
+  VERBOSE = 'verbose',
+  INFO = 'info',
+  DEBUG = 'debug',
+  WARN = 'warn',
+  ERROR = 'error',
+}
+
 export class Logger {
   /**
    * The singleton logger instance, needs to be created using `Logger.initialize()`.
    * 
    * @see Logger.initialize()
    */
-  protected static instance: LoggerInstance;
+  private static instance: LoggerInstance;
 
   /**
    * The default transports thay will be enabled in the singleton.
    */
   static DEFAULT_TRANSPORTS: LoggerInstance['transports'] = [
     new winston.transports.Console({
-      level: process.env.LOG_LEVEL || 'silly',
+      level: process.env.LOG_LEVEL || LogLevel.SILLY,
       format: winston.format.combine(
         enumerateErrorFormat(),
         winston.format.colorize(),
@@ -52,6 +61,15 @@ export class Logger {
   }
 
   /**
+   * Sets a new instance as the default when calling `Logger.getInstance()` method.
+   * 
+   * @param instance The instance to be registered as default (singleton)
+   */
+  public static setInstance(instance: LoggerInstance) {
+    this.instance = instance;
+  }
+
+  /**
    * Initialize a new logger instance using Winston factory.
    *
    * @param options The logger initialization options
@@ -69,7 +87,7 @@ export class Logger {
     });;
 
     if (!this.instance) {
-      this.instance = logger;
+      this.setInstance(logger);
     }
 
     return logger;

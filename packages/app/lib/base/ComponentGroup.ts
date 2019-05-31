@@ -1,4 +1,4 @@
-import { Logger, LoggerInstance, BaseError } from '@nano/errors';
+import { Logger, LoggerInstance } from '@nano/errors';
 import { Application } from '../Application';
 import { Component, ComponentOptions } from './Component';
 
@@ -10,7 +10,7 @@ export interface ComponentGroupOptions extends ComponentOptions {
 /**
  * A higher order component to handle a group of children.
  */
-export default abstract class ComponentGroup implements Component {
+export abstract class ComponentGroup implements Component {
   public readonly children: Component[];
   public readonly logger: LoggerInstance;
 
