@@ -1,0 +1,23 @@
+{
+  "testRegex": "(./__tests__/.*|\\.(spec))\\.(ts)$",
+  "collectCoverage": true,
+  "testEnvironment": "node",
+  "coverageDirectory": "./coverage",
+  "coveragePathIgnorePatterns": [
+    "node_modules",
+    "__tests__"
+  ],
+  "transform": {
+    "^.+\\.(ts)$": "ts-jest"
+  },
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "json"
+  ],
+  "testPathIgnorePatterns": [
+    "./build",
+    "./tests/utils"
+  ]
+}

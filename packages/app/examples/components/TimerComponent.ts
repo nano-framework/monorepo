@@ -26,11 +26,14 @@ export class TimerComponent implements Component {
 
   /* Runs once the application has been initialized */
   public onUnmount(app: Application): void {
+    this.logger.debug(`${this.options.name} unmounting interval`);
     this.reset();
   }
 
   /** Steps the timer state */
   public reset() {
+    this.logger.debug(`${this.options.name} resetting interval and timer value`);
+
     if (this.interval) {
       clearInterval(this.interval);
     }
@@ -41,10 +44,7 @@ export class TimerComponent implements Component {
 
   /** Starts the timer component */
   public start() {
-    if (this.interval) {
-      throw new BaseError('Timer has already started, you must reset it first');
-    }
-
+    this.logger.debug(`${this.options.name} starting interval steps`);
     this.timer = this.options.startAt;
     this.interval = setInterval(() => this.step(), this.options.step);
   }

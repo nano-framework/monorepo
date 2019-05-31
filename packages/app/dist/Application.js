@@ -8,17 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const errors_1 = require("@nano/errors");
 const ComponentGroup_1 = require("./component/ComponentGroup");
 class Application extends ComponentGroup_1.default {
+    constructor(options = {}) {
+        const logger = options.logger || errors_1.Logger.initialize();
+        super(Object.assign({ name: 'Application', logger }, options));
+    }
     onMount() {
         super.onMount(this);
     }
     onInit() {
         const _super = Object.create(null, {
-            onUnmount: { get: () => super.onUnmount }
+            onInit: { get: () => super.onInit }
         });
         return __awaiter(this, void 0, void 0, function* () {
-            _super.onUnmount.call(this, this);
+            _super.onInit.call(this, this);
         });
     }
     onUnmount() {

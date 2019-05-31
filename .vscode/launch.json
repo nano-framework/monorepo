@@ -1,0 +1,52 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "app/simple (ts-node)",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "node",
+      "remoteRoot": "${workspaceFolder}",
+      "localRoot": "${workspaceFolder}",
+      "runtimeArgs": [
+        "--nolazy",
+        "-r",
+        "ts-node/register",
+      ],
+      "args": [
+        "${workspaceFolder}/packages/app/examples/simple.ts"
+      ],
+      "env": {},
+      "sourceMaps": true,
+      "internalConsoleOptions": "neverOpen",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug Jest Tests (Locally)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "node",
+      "sourceMaps": true,
+      "port": 9229,
+      "runtimeArgs": [
+        "--require",
+        "ts-node/register",
+        "--inspect-brk=9229",
+        "${workspaceRoot}/node_modules/.bin/jest",
+        "--runInBand",
+        "--collectCoverage=false",
+        "--config=jest.json"
+      ],
+      "env": {
+        "LOG_LEVEL": "warn"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+    }
+  ]
+}
