@@ -17,7 +17,6 @@
     "json"
   ],
   "testPathIgnorePatterns": [
-    "./build",
-    "./tests/utils"
+    "dist"
   ]
 }
