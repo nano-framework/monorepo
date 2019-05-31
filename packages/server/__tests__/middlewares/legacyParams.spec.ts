@@ -1,4 +1,3 @@
-import { Logger } from "@nano/errors";
 import * as getPort from 'get-port';
 import * as request from "supertest";
 import { Server } from "../../lib";

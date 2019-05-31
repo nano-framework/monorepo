@@ -10,7 +10,7 @@ export class Application extends ComponentGroup {
 
   constructor(options: ApplicationOptions = {}) {
     const logger = options.logger || Logger.initialize();
-    super({ name: 'Application', logger, ...options });
+    super({ name: new.target.name, logger, ...options });
   }
 
   /**

@@ -29,6 +29,7 @@
     "yargs": "^13.2.4"
   },
   "devDependencies": {
+    "@types/supertest": "^2.0.7",
     "get-port": "^5.0.0",
     "supertest": "^4.0.2"
   }

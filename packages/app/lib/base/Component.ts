@@ -1,31 +1,32 @@
+import { LoggerInstance } from "@nano/errors";
 import { Application } from "../Application";
-import { Logger, LoggerInstance } from "@nano/errors";
 
 export interface ComponentOptions {
   name?: string;
+  logger?: LoggerInstance;
 }
 
-export interface Component {
+export interface Component<Type = Application> {
   options: ComponentOptions;
   logger: LoggerInstance;
 
   /**
    * Handles post mount routines.
    */
-  onMount?(app: Application): void;
+  onMount?(app: Type): void;
 
   /**
    * Handles pre initialization routines.
    */
-  onInit?(app: Application): Promise<void>;
+  onInit?(app: Type): Promise<void>;
 
   /**
    * Handles post unmount routines.
    */
-  onUnmount?(app: Application): void;
+  onUnmount?(app: Type): void;
 
   /**
    * Handles post initialization routines.
    */
-  onReady?(app: Application): Promise<void>;
+  onReady?(app: Type): Promise<void>;
 }

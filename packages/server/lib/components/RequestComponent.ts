@@ -30,6 +30,7 @@ export class RequestComponent implements Component {
 
   constructor(public options: RequestComponentOptions = {}) {
     this.logger = options.logger || Logger.getInstance();
+    this.options.name = this.options.name || this.constructor.name;
   }
 
   /**

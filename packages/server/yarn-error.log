@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/luiseduardobrito/n/bin/node /Users/luiseduardobrito/.yarn/bin/yarn.js add fclone
+  /Users/luiseduardobrito/n/bin/node /Users/luiseduardobrito/.yarn/bin/yarn.js add --dev @types/supertest
 
 PATH: 
   /Users/luiseduardobrito/.yarn/bin:/Users/luiseduardobrito/.config/yarn/global/node_modules/.bin:/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:/Users/luiseduardobrito/.rvm/gems/ruby-2.3.5/bin:/Users/luiseduardobrito/.rvm/gems/ruby-2.3.5@global/bin:/Users/luiseduardobrito/.rvm/rubies/ruby-2.3.5/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/luiseduardobrito/Library/Android/sdk/tools:/Users/luiseduardobrito/Library/Android/sdk/platform-tools:/Users/luiseduardobrito/.yarn/bin:/Users/luiseduardobrito/.config/yarn/global/node_modules/.bin:/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin:/Users/luiseduardobrito/.rvm/gems/ruby-2.3.5/bin:/Users/luiseduardobrito/.rvm/gems/ruby-2.3.5@global/bin:/Users/luiseduardobrito/.rvm/rubies/ruby-2.3.5/bin:/Users/luiseduardobrito/n/bin:/Users/luiseduardobrito/Library/Android/sdk/build-tools/27.0.3:/Users/luiseduardobrito/.rvm/bin:/Users/luiseduardobrito/Library/Android/sdk/platform-tools:/Users/luiseduardobrito/Library/Android/sdk/build-tools/27.0.3:/Users/luiseduardobrito/Library/Android/sdk/tools:/usr/local/bin:/Users/luiseduardobrito/.rvm/bin:/Users/luiseduardobrito/.rvm/bin
@@ -52,10 +52,12 @@ npm manifest:
     "dependencies": {
       "@nano/app": "^0.0.1",
       "@nano/errors": "^0.0.1",
+      "@types/cookie-parser": "^1.4.1",
       "@types/express": "^4.16.1",
       "body-parser": "^1.19.0",
       "cookie-parser": "^1.4.4",
       "express": "^4.17.1",
+      "fclone": "^1.0.11",
       "method-override": "^3.0.0"
     },
     "devDependencies": {
@@ -87,6 +89,13 @@ Lockfile:
     dependencies:
       "@types/node" "*"
   
+  "@types/cookie-parser@^1.4.1":
+    version "1.4.1"
+    resolved "https://yarn.btcore.app/@types%2fcookie-parser/-/cookie-parser-1.4.1.tgz#e88a39c41960f31549b4c52dd8620aa4a2feb4bb"
+    integrity sha512-iJY6B3ZGufLiDf2OCAgiAAQuj1sMKC/wz/7XCEjZ+/MDuultfFJuSwrBKcLSmJ5iYApLzCCYBYJZs0Ws8GPmwA==
+    dependencies:
+      "@types/express" "*"
+  
   "@types/express-serve-static-core@*":
     version "4.16.6"
     resolved "https://yarn.btcore.app/@types%2fexpress-serve-static-core/-/express-serve-static-core-4.16.6.tgz#66d4b29ece3e2fb6e5aac2232723002426e651bd"
@@ -95,7 +104,7 @@ Lockfile:
       "@types/node" "*"
       "@types/range-parser" "*"
   
-  "@types/express@^4.16.1":
+  "@types/express@*", "@types/express@^4.16.1":
     version "4.16.1"
     resolved "https://yarn.btcore.app/@types%2fexpress/-/express-4.16.1.tgz#d756bd1a85c34d87eaf44c888bad27ba8a4b7cf0"
     integrity sha512-V0clmJow23WeyblmACoxbHBu2JKlE5TiIme6Lem14FnPW9gsttyHtk6wq7njcdIWH1njAaFgR8gW09lgY98gQg==
@@ -319,6 +328,11 @@ Lockfile:
     version "3.0.2"
     resolved "https://yarn.btcore.app/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
     integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
+  
+  fclone@^1.0.11:
+    version "1.0.11"
+    resolved "https://yarn.btcore.app/fclone/-/fclone-1.0.11.tgz#10e85da38bfea7fc599341c296ee1d77266ee640"
+    integrity sha1-EOhdo4v+p/xZk0HClu4ddyZu5kA=
   
   finalhandler@~1.1.2:
     version "1.1.2"
