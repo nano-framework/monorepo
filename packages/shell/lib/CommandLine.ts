@@ -5,9 +5,9 @@ import * as yargs from "yargs";
 export const DEFAULT_COLUMN_WIDTH = 120;
 
 export interface CommandLineOptions extends ApplicationOptions {
-  /**
-   * The max columns in the terminal output.
-   */
+  /** The name of the command line, defaults to "nano". */
+  name?: string;
+  /** The max columns in the terminal output. */
   maxWidth?: number;
 }
 

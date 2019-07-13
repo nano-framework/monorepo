@@ -16,12 +16,8 @@ export class SentryTransport extends Transport {
 
     Sentry.init({
       dsn: '',
-      patchGlobal: false,
-      install: false,
       environment: process.env.NODE_ENV,
       attachStacktrace: true,
-      tags: {},
-      extra: {},
       integrations: [
         new Integrations.ExtraErrorData({ depth: 6 }),
       ],
