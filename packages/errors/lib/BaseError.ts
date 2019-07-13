@@ -1,5 +1,5 @@
-import * as uuid from "uuid";
-import { inheritStackTrace } from "./utils";
+import * as uuid from 'uuid';
+import { inheritStackTrace } from './utils';
 
 /**
  * The base error details enables the developer to add
@@ -8,12 +8,10 @@ import { inheritStackTrace } from "./utils";
 export class BaseErrorDetails {
   [key: string]: any;
 
-  constructor(data = {}) {
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        this[key] = data[key];
-      }
-    }
+  public constructor(data: { [key: string]: any } = {}) {
+    Object.keys(data).map(key => {
+      this[key] = data[key];
+    });
   }
 }
 
@@ -47,17 +45,17 @@ export class BaseError extends Error {
    */
   protected _cleanStack?: (input: string) => string;
 
-  constructor(input?: any, details: any = new BaseErrorDetails()) {
+  public constructor(input?: any, details: any = new BaseErrorDetails()) {
     let message: string;
     let originalMessage: string;
     let stackId: string = uuid.v4();
 
     if (input && input.message) {
       // Handle input message from another error
-      message = input.message.split(" (stackId:")[0];
+      [message] = input.message.split(' (stackId:');
       originalMessage = input.message;
       stackId = input.stackId || details.stackId || stackId;
-    } else if (input && typeof input.toString === "function") {
+    } else if (input && typeof input.toString === 'function') {
       // Handle input message as string
       message = input.toString();
       originalMessage = input.toString();
@@ -73,16 +71,13 @@ export class BaseError extends Error {
     this.stackId = stackId;
     this.originalMessage = originalMessage;
     this.name = this.constructor.name;
-    this.details =
-      details instanceof BaseErrorDetails
-        ? details
-        : new BaseErrorDetails(details);
+    this.details = details instanceof BaseErrorDetails ? details : new BaseErrorDetails(details);
 
     // Prepare instance stack trace
     if ((input && input.stack) || details.stack) {
       // Tries to inherit original stack trace, input looks like an Error instance
       this.stack = inheritStackTrace(this, input.stack || details.stack);
-    } else if (typeof Error.captureStackTrace === "function") {
+    } else if (typeof Error.captureStackTrace === 'function') {
       // Generates a new Stack Trace (available on v8 platforms)
       Error.captureStackTrace(this, this.constructor);
     } else {
@@ -91,15 +86,13 @@ export class BaseError extends Error {
     }
 
     // External dependency for cleaning unuseful stack trace frames
-    if (require.resolve("clean-stack")) {
+    if (require.resolve('clean-stack')) {
       try {
         // Try to get clean stack gracefully
-        this._cleanStack = require("clean-stack");
+        // eslint-disable-next-line
+        this._cleanStack = require('clean-stack');
       } catch (exception) {
-        console.warn(
-          'Dependency "clean-stack" is not supported in this platform, errors will be ignored',
-          exception
-        );
+        console.warn('Dependency "clean-stack" is not supported in this platform, errors will be ignored', exception);
       }
     }
   }
@@ -115,10 +108,7 @@ export class BaseError extends Error {
       try {
         stack = this._cleanStack(this.stack);
       } catch (exception) {
-        console.warn(
-          'Dependency "clean-stack" is not supported in this platform, errors will be ignored',
-          exception
-        );
+        console.warn('Dependency "clean-stack" is not supported in this platform, errors will be ignored', exception);
       }
     }
 
@@ -127,7 +117,7 @@ export class BaseError extends Error {
       stackId: this.stackId,
       details: this.details,
       // tslint:disable-next-line:object-shorthand-properties-first
-      stack
+      stack,
     };
   }
 

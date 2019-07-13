@@ -1,5 +1,5 @@
-import { Logger, LoggerInstance } from "@nano/errors";
-import { ComponentGroup, ComponentGroupOptions } from "./base";
+import { Logger, LoggerInstance } from '@nano/errors';
+import { ComponentGroup, ComponentGroupOptions } from './base';
 
 export interface ApplicationOptions extends ComponentGroupOptions {
   logger?: LoggerInstance;
@@ -8,7 +8,7 @@ export interface ApplicationOptions extends ComponentGroupOptions {
 export class Application extends ComponentGroup {
   public readonly options: ApplicationOptions;
 
-  constructor(options: ApplicationOptions = {}) {
+  public constructor(options: ApplicationOptions = {}) {
     const logger = options.logger || Logger.initialize();
     super({ name: new.target.name, logger, ...options });
   }

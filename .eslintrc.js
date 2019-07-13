@@ -33,22 +33,27 @@ module.exports = {
     sourceType: 'module',  // Allows for the use of imports
   },
   rules: {
-    // '@typescript-eslint/explicit-function-return-type': [ // Explicit function return types, except in expressions
-    //   'error',
-    //   { 'allowExpressions': true }
-    // ],
+    // Error rules
+
+    'prettier/prettier': ['error', { 'tabWidth': 2 }], // Change prettier tab width to 2
+
+    // Warning RULES
+
+    'import/first': 'warn', // Warns if imports aren't at the start of the file
+    'import/no-cycle': 'warn', // Warns if you are using circle dependencies
+    'no-underscore-dangle': 'warn', // Flexible underscore usage
+    'global-require': 'warn', // Warns when using global require, this should be avoided
+    'require-await': 'warn', // Warns when using async functions without await calls
+
+    // DISABLED RULES
+
+    'array-callback-return': 'off', // This is not very useful
+
     // "@typescript-eslint/no-object-literal-type-assertion": ["error", {
     //   allowAsParameter: true // Allow type assertion in call and new expression, default false
     // }],
-    // 'prettier/prettier': ['error', { 'tabWidth': 2 }], // Change prettier tab width to 2
     // 'dot-notation': 0,
-    // 'no-underscore': 0,
     // 'class-methods-use-this': 0,
-    // 'no-underscore-dangle': 0,
-    // 'global-require': 'warn',
-    // 'import/no-cycle': 'warn', // Warns if you are using circle dependencies
-    // 'require-await': 'warn', // Warns if you forget to add await to a promise call
-    // 'import/first': 'warn',
     // 'no-empty-function': 'warn',
     // 'no-useless-constructor': 'warn',
     // 'import/no-extraneous-dependencies': 'warn',
