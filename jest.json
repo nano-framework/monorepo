@@ -23,7 +23,7 @@
   "collectCoverageFrom": [
     "./packages/**/*.ts",
     "!./packages/**/*.d.ts",
-    "!./packages/commands/lib/bin.ts",
+    "!./packages/shell/bin/*.ts",
     "!<rootDir>/node_modules/"
   ]
 }

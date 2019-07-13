@@ -11,7 +11,7 @@ class TestController extends BaseController {
   }
 }
 
-describe('api.MainServer', () => {
+describe('lib.server.Server', () => {
   it('should not respond on an invalid port', async () => {
     const server = new TestServer({ port: -1 });
     await expect(server.start()).rejects.toThrow(/Received -1/gi);
@@ -26,9 +26,6 @@ describe('api.MainServer', () => {
 
     // Start server and perform a simple 404 request
     await server.start();
-    await request(server.express)
-      .get('/')
-      .expect(404);
     await request(server.express)
       .get('/echo')
       .expect(200);

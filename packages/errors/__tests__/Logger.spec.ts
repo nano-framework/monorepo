@@ -10,9 +10,9 @@ describe('lib.logger', () => {
   it('ensure only first initialized is kept as singleton', async () => {
     expect(() => Logger.getInstance()).toThrow(/initialized yet/gi);
     Logger.initialize();
-    Logger.instance.flag = true;
+    (Logger as any).instance.flag = true;
     Logger.initialize();
-    expect(Logger.instance.flag).toBe(true);
+    expect((Logger as any).instance.flag).toBe(true);
   });
 
   it('should throw if tried to be constructed', async () => {

@@ -1,4 +1,3 @@
-import { Application } from '../lib';
 import { ExampleApplication } from '../examples/simple';
 
 jest.useFakeTimers();

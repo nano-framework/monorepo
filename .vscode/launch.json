@@ -47,6 +47,30 @@
       },
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
+    },
+    {
+      "name": "Debug Jest Single File (Locally)",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "node",
+      "sourceMaps": true,
+      "port": 9229,
+      "runtimeArgs": [
+        "--require",
+        "ts-node/register",
+        "--inspect-brk=9229",
+        "${workspaceRoot}/node_modules/.bin/jest",
+        "${relativeFile}",
+        "--runInBand",
+        "--collectCoverage=false",
+        "--config=jest.json"
+      ],
+      "env": {
+        "LOG_LEVEL": "warn"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
     }
   ]
 }
