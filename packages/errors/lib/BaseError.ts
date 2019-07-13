@@ -1,5 +1,5 @@
-import * as uuid from 'uuid';
-import { inheritStackTrace } from './utils';
+import * as uuid from "uuid";
+import { inheritStackTrace } from "./utils";
 
 /**
  * The base error details enables the developer to add
@@ -54,10 +54,10 @@ export class BaseError extends Error {
 
     if (input && input.message) {
       // Handle input message from another error
-      message = input.message.split(' (stackId:')[0];
+      message = input.message.split(" (stackId:")[0];
       originalMessage = input.message;
       stackId = input.stackId || details.stackId || stackId;
-    } else if (input && typeof input.toString === 'function') {
+    } else if (input && typeof input.toString === "function") {
       // Handle input message as string
       message = input.toString();
       originalMessage = input.toString();
@@ -73,27 +73,33 @@ export class BaseError extends Error {
     this.stackId = stackId;
     this.originalMessage = originalMessage;
     this.name = this.constructor.name;
-    this.details = details instanceof BaseErrorDetails ? details : new BaseErrorDetails(details);
+    this.details =
+      details instanceof BaseErrorDetails
+        ? details
+        : new BaseErrorDetails(details);
 
     // Prepare instance stack trace
     if ((input && input.stack) || details.stack) {
       // Tries to inherit original stack trace, input looks like an Error instance
       this.stack = inheritStackTrace(this, input.stack || details.stack);
-    } else if (typeof Error.captureStackTrace === 'function') {
+    } else if (typeof Error.captureStackTrace === "function") {
       // Generates a new Stack Trace (available on v8 platforms)
       Error.captureStackTrace(this, this.constructor);
     } else {
       // Fallback mode to simple error
-      this.stack = (new Error(this.message)).stack;
+      this.stack = new Error(this.message).stack;
     }
 
     // External dependency for cleaning unuseful stack trace frames
-    if (require.resolve('clean-stack')) {
+    if (require.resolve("clean-stack")) {
       try {
         // Try to get clean stack gracefully
-        this._cleanStack = require('clean-stack');
+        this._cleanStack = require("clean-stack");
       } catch (exception) {
-        console.warn('Dependency "clean-stack" is not supported in this platform, errors will be ignored', exception);
+        console.warn(
+          'Dependency "clean-stack" is not supported in this platform, errors will be ignored',
+          exception
+        );
       }
     }
   }
@@ -102,14 +108,17 @@ export class BaseError extends Error {
    * Generates plain object for this error instance.
    */
   public toObject() {
-    let stack = this.stack;
+    let { stack } = this;
 
     // External dependency for cleaning unuseful stack trace frames
     if (this._cleanStack) {
       try {
         stack = this._cleanStack(this.stack);
       } catch (exception) {
-        console.warn('Dependency "clean-stack" is not supported in this platform, errors will be ignored', exception);
+        console.warn(
+          'Dependency "clean-stack" is not supported in this platform, errors will be ignored',
+          exception
+        );
       }
     }
 
@@ -118,7 +127,7 @@ export class BaseError extends Error {
       stackId: this.stackId,
       details: this.details,
       // tslint:disable-next-line:object-shorthand-properties-first
-      stack,
+      stack
     };
   }
 

@@ -1,4 +1,4 @@
-import { Application, ApplicationOptions } from '@nano/app';
+import { Application, ApplicationOptions } from "@nano/app";
 import * as yargs from "yargs";
 
 // TODO: Move to config
@@ -13,10 +13,11 @@ export interface CommandLineOptions extends ApplicationOptions {
 
 export class CommandLine extends Application {
   public yargs: yargs.Argv;
+
   public options: CommandLineOptions;
 
   constructor(options: CommandLineOptions = {}) {
-    super({ name: 'nano', ...options });
+    super({ name: "nano", ...options });
     this.options.maxWidth = this.options.maxWidth || DEFAULT_COLUMN_WIDTH;
   }
 
@@ -30,7 +31,7 @@ export class CommandLine extends Application {
     this.yargs = yargs.usage("Usage: $0 <command> [...args]").wrap(maxWidth);
 
     // Base script name
-    this.yargs.scriptName(this.options.name)
+    this.yargs.scriptName(this.options.name);
 
     // Prepare verbose option
     this.yargs
@@ -55,8 +56,7 @@ export class CommandLine extends Application {
     await super.onInit();
 
     // Initialize yarhs using getter
-    console.log(' ');
+    console.log(" ");
     this.yargs.argv;
   }
-
 }

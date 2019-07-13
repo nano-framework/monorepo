@@ -1,11 +1,15 @@
-import { Application, ApplicationOptions, Component } from '@nano/app';
-import * as Express from 'express';
-import * as http from 'http';
-import { RequestComponent, RequestComponentOptions } from './components';
+import { Application, ApplicationOptions, Component } from "@nano/app";
+import * as Express from "express";
+import * as http from "http";
+import { RequestComponent, RequestComponentOptions } from "./components";
 
 export type BaseRequest = Express.Request;
 export type BaseResponse = Express.Response;
-export type BaseMiddleware = (req: BaseRequest, res: BaseResponse, next: (error?: Error) => void) => void;
+export type BaseMiddleware = (
+  req: BaseRequest,
+  res: BaseResponse,
+  next: (error?: Error) => void
+) => void;
 
 // TODO: Move this to a nano/config pkg
 const DEFAULT_PORT = 3000;
@@ -17,8 +21,11 @@ export interface ServerOptions extends ApplicationOptions {
 
 export class Server extends Application {
   public http: http.Server;
+
   public options: ServerOptions;
+
   public express: Express.Application;
+
   public children: Component<Server>[];
 
   constructor(options: ServerOptions = {}, express = Express()) {
@@ -40,14 +47,19 @@ export class Server extends Application {
     await super.onInit();
 
     // Wrap express startup in a single promise
-    return new Promise((resolve, reject) => this.http = this.express
-      .listen(this.options.port || DEFAULT_PORT, () => resolve())
-      .on("error", (error: Error) => reject(error))
+    return new Promise(
+      (resolve, reject) =>
+        (this.http = this.express
+          .listen(this.options.port || DEFAULT_PORT, () => resolve())
+          .on("error", (error: Error) => reject(error)))
     );
   }
 
   public async onReady() {
     await super.onReady();
-    this.logger.debug(`${this.options.name} started listening on the specified port`, { port: this.options.port });
+    this.logger.debug(
+      `${this.options.name} started listening on the specified port`,
+      { port: this.options.port }
+    );
   }
 }
