@@ -16,14 +16,24 @@ export interface ServerOptions extends ApplicationOptions {
 }
 
 export class Server extends Application {
+  /** The server instance options */
+  public readonly options: ServerOptions;
+
+  /** The server express instance */
+  public readonly express: Express.Application;
+
+  /** The server HTTP instance */
   public http: http.Server;
 
-  public options: ServerOptions;
-
-  public express: Express.Application;
-
+  /** The server children components  */
   public children: Component<Server>[];
 
+  /**
+   * Initializes a new Server instance bound to an Express application.
+   *
+   * @param options The readonly server options.
+   * @param express The readonly express instance, if not provided will be auto-initialized.
+   */
   public constructor(options: ServerOptions = {}, express = Express()) {
     super({ name: new.target.name, ...options });
 
@@ -37,6 +47,18 @@ export class Server extends Application {
 
     // Ensure server will have a port to bind to
     this.options.port = options.port || DEFAULT_PORT;
+  }
+
+  /**
+   * Adds raw request handlers to the current Express server instance.
+   * <br />
+   * Use with caution, Component registration is always preferred.
+   *
+   * @param handlers The request handlers to be bound to the server.
+   */
+  public use(...handlers: Express.RequestHandler[]): this {
+    this.express.use(...handlers);
+    return this;
   }
 
   public async onInit(): Promise<void> {
