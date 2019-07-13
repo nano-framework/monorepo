@@ -23,7 +23,9 @@ export abstract class ComponentGroup implements Component {
    * Handles post mount routines.
    */
   public onMount(app: Application): void {
-    this.logger.silly(`Mounting ${this.options.name} child components`, this.children.map(c => c.options.name));
+    const names = this.children.length ? this.children.map(c => c.options.name) : []
+    this.logger.silly(`Mounting ${this.options.name} child components`, names);
+
     for (let i = 0; i < this.children.length; i += 1) {
       if (this.children[i].onMount) {
         this.children[i].onMount(app);

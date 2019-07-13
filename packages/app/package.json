@@ -18,17 +18,20 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf ./dist",
+    "precommit": "lint-staged",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
     "@nano/errors": "^0.0.1",
     "@types/cookie-parser": "^1.4.1",
     "cookie-parser": "^1.4.4",
-    "fclone": "^1.0.11"
+    "fclone": "^1.0.11",
+    "source-map-support": "^0.5.12"
   },
   "devDependencies": {
     "@types/supertest": "^2.0.7",
     "get-port": "^5.0.0",
+    "lint-staged": "^9.2.0",
     "supertest": "^4.0.2"
   }
 }

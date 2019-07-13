@@ -8,12 +8,10 @@ import { inheritStackTrace } from './utils';
 export class BaseErrorDetails {
   [key: string]: any;
 
-  constructor(data = {}) {
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        this[key] = data[key];
-      }
-    }
+  public constructor(data: { [key: string]: any } = {}) {
+    Object.keys(data).map(key => {
+      this[key] = data[key];
+    });
   }
 }
 
@@ -47,14 +45,14 @@ export class BaseError extends Error {
    */
   protected _cleanStack?: (input: string) => string;
 
-  constructor(input?: any, details: any = new BaseErrorDetails()) {
+  public constructor(input?: any, details: any = new BaseErrorDetails()) {
     let message: string;
     let originalMessage: string;
     let stackId: string = uuid.v4();
 
     if (input && input.message) {
       // Handle input message from another error
-      message = input.message.split(' (stackId:')[0];
+      [message] = input.message.split(' (stackId:');
       originalMessage = input.message;
       stackId = input.stackId || details.stackId || stackId;
     } else if (input && typeof input.toString === 'function') {
@@ -84,13 +82,14 @@ export class BaseError extends Error {
       Error.captureStackTrace(this, this.constructor);
     } else {
       // Fallback mode to simple error
-      this.stack = (new Error(this.message)).stack;
+      this.stack = new Error(this.message).stack;
     }
 
     // External dependency for cleaning unuseful stack trace frames
     if (require.resolve('clean-stack')) {
       try {
         // Try to get clean stack gracefully
+        // eslint-disable-next-line
         this._cleanStack = require('clean-stack');
       } catch (exception) {
         console.warn('Dependency "clean-stack" is not supported in this platform, errors will be ignored', exception);
@@ -102,7 +101,7 @@ export class BaseError extends Error {
    * Generates plain object for this error instance.
    */
   public toObject() {
-    let stack = this.stack;
+    let { stack } = this;
 
     // External dependency for cleaning unuseful stack trace frames
     if (this._cleanStack) {

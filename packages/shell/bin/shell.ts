@@ -1,11 +1,6 @@
-require("source-map-support").install();
-const { CommandLine } = require("../lib/CommandLine");
-
+#!/bin/bash
+/* eslint-disable */
+require('source-map-support').install();
+const { CommandLine } = require('../lib/CommandLine');
 const Package = require('../../../package');
-
-new CommandLine({ 
-  name: Package.name,
-  version: Package.version,
-})
-  .start()
-  .then(() => console.log('Command line exited successfully'));
+new CommandLine({ version: Package.version }).start().then(() => console.log('Command line exited successfully'));

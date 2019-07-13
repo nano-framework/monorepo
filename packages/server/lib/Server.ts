@@ -17,11 +17,14 @@ export interface ServerOptions extends ApplicationOptions {
 
 export class Server extends Application {
   public http: http.Server;
+
   public options: ServerOptions;
+
   public express: Express.Application;
+
   public children: Component<Server>[];
 
-  constructor(options: ServerOptions = {}, express = Express()) {
+  public constructor(options: ServerOptions = {}, express = Express()) {
     super({ name: new.target.name, ...options });
 
     // Add default server children
@@ -40,10 +43,11 @@ export class Server extends Application {
     await super.onInit();
 
     // Wrap express startup in a single promise
-    return new Promise((resolve, reject) => this.http = this.express
-      .listen(this.options.port || DEFAULT_PORT, () => resolve())
-      .on("error", (error: Error) => reject(error))
-    );
+    return new Promise((resolve, reject) => {
+      this.http = this.express
+        .listen(this.options.port || DEFAULT_PORT, () => resolve())
+        .on('error', (error: Error) => reject(error));
+    });
   }
 
   public async onReady() {
