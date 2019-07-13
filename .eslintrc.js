@@ -43,6 +43,8 @@ module.exports = {
     'no-underscore-dangle': 'warn', // Flexible underscore usage
     'global-require': 'warn', // Warns when using global require, this should be avoided
     'require-await': 'warn', // Warns when using async functions without await calls
+    'no-await-in-loop': 'warn', // Loops inside awaits might be dangerous
+    'consistent-return': 'warn', // Function returns should be consistent
     '@typescript-eslint/no-empty-interface': 'warn', // Warns when renaming interfaces
 
     // DISABLED RULES

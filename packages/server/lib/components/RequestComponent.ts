@@ -1,22 +1,24 @@
 // import * as multer from "multer";
 // import { legacyParams, responseBinder } from "./middlewares";
-import { Component, ComponentOptions } from "@nano/app";
-import { BaseError, Logger, LoggerInstance } from "@nano/errors";
-import * as bodyParser from "body-parser";
-import * as cookieParser from "cookie-parser";
-import * as methodOverride from "method-override";
-import { legacyParams } from "../middlewares";
-import { Server } from "../Server";
+import { Component, ComponentOptions } from '@nano/app';
+import { BaseError, Logger, LoggerInstance } from '@nano/errors';
+import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
+import * as methodOverride from 'method-override';
+import { legacyParams } from '../middlewares';
+import { Server } from '../Server';
 
 export interface RequestComponentOptions extends ComponentOptions {
   logger?: LoggerInstance;
   cookieParser?: false | (cookieParser.CookieParseOptions & { secret: string });
   methodOverride?: false | methodOverride.Options;
-  bodyParser?: false | {
-    text?: bodyParser.OptionsText,
-    json?: bodyParser.OptionsJson,
-    urlencoded?: bodyParser.OptionsUrlencoded,
-  };
+  bodyParser?:
+    | false
+    | {
+        text?: bodyParser.OptionsText;
+        json?: bodyParser.OptionsJson;
+        urlencoded?: bodyParser.OptionsUrlencoded;
+      };
   // multer?: {
   //   single?: string;
   //   array?: { name: string; maxCount: number };
@@ -28,14 +30,14 @@ export interface RequestComponentOptions extends ComponentOptions {
 export class RequestComponent implements Component {
   public logger: LoggerInstance;
 
-  constructor(public options: RequestComponentOptions = {}) {
+  public constructor(public options: RequestComponentOptions = {}) {
     this.logger = options.logger || Logger.getInstance();
     this.options.name = this.options.name || this.constructor.name;
   }
 
   /**
    * Mounts all inner dependencis for handling requests in the Express server.
-   * 
+   *
    * @param server The server instance to mount into
    */
   public onMount(server: Server) {
@@ -51,7 +53,7 @@ export class RequestComponent implements Component {
 
       // Handle JSON body parser configuration as default
       if (options.json !== false) {
-        server.express.use(bodyParser.json({ ...options.json, }));
+        server.express.use(bodyParser.json({ ...options.json }));
       }
 
       // Handle Urlencoded body parser configuration as default

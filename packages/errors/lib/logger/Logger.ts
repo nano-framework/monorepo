@@ -1,7 +1,7 @@
 import * as winston from 'winston';
 import * as Transport from 'winston-transport';
 import { BaseError } from '../BaseError';
-import { enumerateErrorFormat, lineFormat } from "../utils";
+import { enumerateErrorFormat, lineFormat } from '../utils';
 
 export interface LoggerOptions extends winston.LoggerOptions {
   transports?: Transport[];
@@ -22,7 +22,7 @@ export enum LogLevel {
 export class Logger {
   /**
    * The singleton logger instance, needs to be created using `Logger.initialize()`.
-   * 
+   *
    * @see Logger.initialize()
    */
   private static instance: LoggerInstance;
@@ -30,14 +30,10 @@ export class Logger {
   /**
    * The default transports thay will be enabled in the singleton.
    */
-  static DEFAULT_TRANSPORTS: LoggerInstance['transports'] = [
+  public static DEFAULT_TRANSPORTS: LoggerInstance['transports'] = [
     new winston.transports.Console({
       level: process.env.LOG_LEVEL || LogLevel.SILLY,
-      format: winston.format.combine(
-        enumerateErrorFormat(),
-        winston.format.colorize(),
-        lineFormat(),
-      ),
+      format: winston.format.combine(enumerateErrorFormat(), winston.format.colorize(), lineFormat()),
     }),
   ];
 
@@ -62,7 +58,7 @@ export class Logger {
 
   /**
    * Sets a new instance as the default when calling `Logger.getInstance()` method.
-   * 
+   *
    * @param instance The instance to be registered as default (singleton)
    */
   public static setInstance(instance: LoggerInstance) {
@@ -83,8 +79,8 @@ export class Logger {
     // Construct new Winston logger instance with enhanced error handling
     const logger = winston.createLogger({
       format: winston.format.combine(enumerateErrorFormat()),
-      ...opt
-    });;
+      ...opt,
+    });
 
     if (!this.instance) {
       this.setInstance(logger);

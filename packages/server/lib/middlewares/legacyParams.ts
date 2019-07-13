@@ -1,4 +1,4 @@
-import { BaseRequest, BaseResponse } from "../Server";
+import { BaseRequest, BaseResponse } from '../Server';
 
 export function legacyParams(req: BaseRequest, res: BaseResponse, next: (error?: Error) => void) {
   /**
@@ -8,7 +8,7 @@ export function legacyParams(req: BaseRequest, res: BaseResponse, next: (error?:
    *  - Checks body params, ex: id=12, {"id":12}
    *  - Checks query string params, ex: ?id=12
    *
-   * To utilize request bodies, `req.body` should be an object. 
+   * To utilize request bodies, `req.body` should be an object.
    * This can be done by using the `bodyParser()` middleware.
    */
   req.param = function param<Type = any>(name: string, defaultValue?: Type): Type {

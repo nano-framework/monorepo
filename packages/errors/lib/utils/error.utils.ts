@@ -1,4 +1,4 @@
-import { BaseError } from "../BaseError";
+import { BaseError } from '../BaseError';
 
 export const inheritStackTrace = (baseError: BaseError, originalStackStrace: string): string => {
   const stack: string[] = originalStackStrace.split('\n');

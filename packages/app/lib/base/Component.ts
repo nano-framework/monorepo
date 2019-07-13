@@ -1,5 +1,5 @@
-import { LoggerInstance } from "@nano/errors";
-import { Application } from "../Application";
+import { LoggerInstance } from '@nano/errors';
+import { Application } from '../Application';
 
 export interface ComponentOptions {
   name?: string;

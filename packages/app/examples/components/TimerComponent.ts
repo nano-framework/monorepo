@@ -1,35 +1,28 @@
-import { BaseError, Logger } from '@nano/errors';
-import { Application, Component } from "../../lib";
+import { Logger } from '@nano/errors';
+import { Application, Component } from '../../lib';
 
 export class TimerComponent implements Component {
-  logger = Logger.getInstance();
+  public logger = Logger.getInstance();
 
   // The initial options for the timer component
-  options = {
+  public options = {
     name: 'TimerComponent',
     startAt: 0,
     step: 1000,
   };
 
   /* The state variables for the timer */
-  timer?: number = undefined;
-  interval?: NodeJS.Timeout = undefined;
+  public timer?: number = undefined;
+
+  public interval?: NodeJS.Timeout = undefined;
 
   /**
-   * Mounts the timer once the 
-   * 
+   * Mounts the timer once the
+   *
    * @param app The application instance
    */
   public onMount(app: Application): void {
     this.start();
-  }
-
-  public async onInit() {
-
-  }
-
-  public async onReady() {
-
   }
 
   /* Runs once the application has been initialized */
@@ -61,7 +54,7 @@ export class TimerComponent implements Component {
   protected step() {
     this.timer += this.options.step;
     this.logger.info(`${this.options.name} component got a new step increment`, {
-      timer: `${(this.timer / 1000).toFixed(3)}s`
-    })
+      timer: `${(this.timer / 1000).toFixed(3)}s`,
+    });
   }
 }
