@@ -33,12 +33,10 @@ module.exports = {
     sourceType: 'module',  // Allows for the use of imports
   },
   rules: {
-    // Error rules
-
+    // ERROR OVERRIDES
     'prettier/prettier': ['error', { 'tabWidth': 2 }], // Change prettier tab width to 2
 
-    // Warning RULES
-
+    // WARNING OVERRIDES
     'import/first': 'warn', // Warns if imports aren't at the start of the file
     'import/no-cycle': 'warn', // Warns if you are using circle dependencies
     'no-underscore-dangle': 'warn', // Flexible underscore usage
@@ -46,19 +44,7 @@ module.exports = {
     'require-await': 'warn', // Warns when using async functions without await calls
 
     // DISABLED RULES
+    'array-callback-return': 'off', // This is not very useful, a lot of valid use cases for voided async functions
 
-    'array-callback-return': 'off', // This is not very useful
-
-    // "@typescript-eslint/no-object-literal-type-assertion": ["error", {
-    //   allowAsParameter: true // Allow type assertion in call and new expression, default false
-    // }],
-    // 'dot-notation': 0,
-    // 'class-methods-use-this': 0,
-    // 'no-empty-function': 'warn',
-    // 'no-useless-constructor': 'warn',
-    // 'import/no-extraneous-dependencies': 'warn',
-    // 'import/prefer-default-export': 'warn',
-    // '@typescript-eslint/no-empty-interface': 0,
-    // '@typescript-eslint/no-parameter-properties': 0,
   }
 };

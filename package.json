@@ -13,12 +13,18 @@
     "yarn": ">=1.16"
   },
   "scripts": {
-    "lint": "eslint packages/**/{lib,bin}/*.ts",
+    "lint": "eslint packages/**/{lib,bin,__tests__}/*.ts",
     "build": "lerna run build",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna run clean",
     "postclean": "lerna clean -y",
-    "test": "jest --config jest.json"
+    "test": "jest --config jest.json",
+    "precommit": "lerna run --concurrency 1 --stream precommit --since HEAD"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run precommit"
+    }
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
@@ -32,6 +38,7 @@
     "eslint-plugin-jest": "^22.7.2",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-security": "^1.4.0",
+    "husky": "^3.0.0",
     "jest": "^24.8.0",
     "lerna": "^3.14.1",
     "prettier": "^1.18.2",
