@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
+    "baseUrl": "./",
     "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -9,7 +10,6 @@
     "inlineSourceMap": true,
     "declaration": true,
     "removeComments": true,
-    "baseUrl": "./",
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "resolveJsonModule": true,

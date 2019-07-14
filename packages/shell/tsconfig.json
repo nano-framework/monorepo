@@ -1,10 +1,10 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./lib",
     "outDir": "./dist"
   },
   "include": [
-    "./lib",
-    "./bin",
+    "./lib"
   ]
  }

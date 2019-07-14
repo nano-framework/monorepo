@@ -1,5 +1,5 @@
 {
-  "name": "@nano/sh",
+  "name": "@nano/shell",
   "version": "0.0.1",
   "description": "> TODO: description",
   "author": "Luis Brito <luiseduardo14@gmail.com>",
@@ -10,17 +10,20 @@
   },
   "directories": {
     "lib": "lib",
-    "test": "__tests__"
+    "test": "__tests__",
+    "examples": "examples"
   },
   "files": [
-    "lib"
+    "lib",
+    "examples"
   ],
   "publishConfig": {
     "registry": "https://yarn.btcore.app/"
   },
   "scripts": {
     "build": "tsc",
-    "clean": "rimraf ./dist",
+    "bin": "ts-node bin/shell",
+    "clean": "rimraf ./node_modules ./dist",
     "precommit": "lint-staged",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
