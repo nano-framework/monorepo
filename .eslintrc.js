@@ -46,6 +46,7 @@ module.exports = {
     'no-await-in-loop': 'warn', // Loops inside awaits might be dangerous
     'consistent-return': 'warn', // Function returns should be consistent
     '@typescript-eslint/no-empty-interface': 'warn', // Warns when renaming interfaces
+    'class-methods-use-this': 'warn', // Warns if method could be static
 
     // DISABLED RULES
     'import/prefer-default-export': 'off', // Not very useful for large modules

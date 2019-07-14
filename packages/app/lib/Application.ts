@@ -1,11 +1,11 @@
 import { Logger, LoggerInstance } from '@nano/errors';
-import { ComponentGroup, ComponentGroupOptions } from './base';
+import { BaseComponentGroup, BaseComponentGroupOptions } from './base';
 
-export interface ApplicationOptions extends ComponentGroupOptions {
+export interface ApplicationOptions extends BaseComponentGroupOptions {
   logger?: LoggerInstance;
 }
 
-export class Application extends ComponentGroup {
+export class Application extends BaseComponentGroup {
   public readonly options: ApplicationOptions;
 
   public constructor(options: ApplicationOptions = {}) {

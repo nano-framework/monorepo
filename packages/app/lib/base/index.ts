@@ -1,2 +1,2 @@
-export * from './Component';
-export * from './ComponentGroup';
+export * from './BaseComponent';
+export * from './BaseComponentGroup';

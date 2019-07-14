@@ -1,8 +1,9 @@
 import { Logger, LoggerInstance } from '@nano/errors';
 import { Application } from '../Application';
-import { Component, ComponentOptions } from './Component';
+import { Component, ComponentOptions } from '../schema';
+import { BaseComponent } from './BaseComponent';
 
-export interface ComponentGroupOptions extends ComponentOptions {
+export interface BaseComponentGroupOptions extends ComponentOptions {
   children?: Component[];
   logger?: LoggerInstance;
 }
@@ -10,13 +11,13 @@ export interface ComponentGroupOptions extends ComponentOptions {
 /**
  * A higher order component to handle a group of children.
  */
-export abstract class ComponentGroup implements Component {
+export abstract class BaseComponentGroup extends BaseComponent {
   public readonly children: Component[];
 
   public readonly logger: LoggerInstance;
 
-  public constructor(public options: ComponentGroupOptions = {}) {
-    this.logger = options.logger || Logger.getInstance();
+  public constructor(public options: BaseComponentGroupOptions = {}) {
+    super(options);
     this.children = options.children || this.children || [];
   }
 
