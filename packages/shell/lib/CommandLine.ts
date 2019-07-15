@@ -1,9 +1,12 @@
 import { Application, ApplicationOptions } from '@nano/app';
+import { BaseError } from '@nano/errors';
 import * as yargs from 'yargs';
 import * as Commands from './commands';
 
 // TODO: Move to config
 export const DEFAULT_COLUMN_WIDTH = 120;
+
+export class CommandLineError extends BaseError {}
 
 export interface CommandLineOptions extends ApplicationOptions {
   /** The name of the command line, defaults to "nano". */
@@ -11,18 +14,23 @@ export interface CommandLineOptions extends ApplicationOptions {
   /** The max columns in the terminal output. */
   maxWidth?: number;
   /** The commands to be bound to the Yargs instance */
-  commands?: yargs.CommandModule[];
+  commands?: (new () => yargs.CommandModule)[];
 }
 
 export class CommandLine extends Application {
-  public static DEFAULT_COMMANDS = Object.values(Commands);
+  public static DEFAULT_COMMANDS = [Commands.VersionCommand];
 
   public yargs: yargs.Argv;
 
   public options: CommandLineOptions;
 
-  public constructor(options: CommandLineOptions = {}) {
-    super({ name: 'nano', ...options });
+  public constructor({ commands, ...options }: CommandLineOptions = {}) {
+    // eslint-disable-next-line
+    super({
+      name: 'nano',
+      commands: commands || CommandLine.DEFAULT_COMMANDS,
+      ...options,
+    } as ApplicationOptions);
     this.options.maxWidth = this.options.maxWidth || DEFAULT_COLUMN_WIDTH;
   }
 
@@ -49,8 +57,16 @@ export class CommandLine extends Application {
   public async onInit() {
     await super.onInit();
 
+    if (!this.options.commands || !this.options.commands.length) {
+      throw new CommandLineError('No commands were bound to the command line instance');
+    }
+
     // Initialize all child commands
-    this.options.commands.map(cmd => this.yargs.command(cmd));
+    const commands = this.options.commands || [];
+    commands.map((Command: any) => this.yargs.command(new Command({ logger: this.logger })));
+
+    // Spacing between logs and output
+    console.log(' ');
 
     // Prepare verbose option
     this.yargs
@@ -58,16 +74,24 @@ export class CommandLine extends Application {
       .alias('V', 'verbose')
       .describe('verbose', 'Runs command in verbose mode');
 
-    // Prepare help guide
-    this.yargs
-      .recommendCommands()
-      .demandCommand(1)
-      .strict()
-      .help('h')
-      .alias('h', 'help')
-      .alias('v', 'version');
-
     // eslint-disable-next-line
-    this.yargs.argv;
+    await new Promise((resolve, reject) => this.yargs
+        .recommendCommands()
+        .demandCommand(1)
+        .help('h')
+        .alias('h', 'help')
+        .alias('v', 'version')
+        .parse(process.argv.slice(2, process.argv.length), async (error, argv, output) => {
+          if (argv._promised_result) {
+            await argv._promised_result;
+          }
+
+          if (error) {
+            reject(error);
+          } else {
+            resolve(output);
+          }
+        }),
+    );
   }
 }

@@ -1917,7 +1917,7 @@ caseless@~0.12.0:
   resolved "https://yarn.btcore.app/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-chalk@^1.0.0, chalk@^1.1.3:
+chalk@^1.0.0, chalk@^1.1.1, chalk@^1.1.3:
   version "1.1.3"
   resolved "https://yarn.btcore.app/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"
   integrity sha1-qBFcVeSnAv5NFQq9OHKCKn4J/Jg=
@@ -3242,6 +3242,11 @@ figgy-pudding@^3.4.1, figgy-pudding@^3.5.1:
   version "3.5.1"
   resolved "https://yarn.btcore.app/figgy-pudding/-/figgy-pudding-3.5.1.tgz#862470112901c727a0e495a80744bd5baa1d6790"
   integrity sha512-vNKxJHTEKNThjfrdJwHc7brvM6eVevuO5nTj6ez8ZQ1qbXTvGthucRF7S4vf2cr71QVnT70V34v0S1DyQsti0w==
+
+figlet@^1.1.1:
+  version "1.2.3"
+  resolved "https://yarn.btcore.app/figlet/-/figlet-1.2.3.tgz#7d25df546f41fc411c2a8b88012d48d55de72129"
+  integrity sha512-+F5zdvZ66j77b8x2KCPvWUHC0UCKUMWrewxmewgPlagp3wmDpcrHMbyv/ygq/6xoxBPGQA+UJU3SMoBzKoROQQ==
 
 figures@^1.7.0:
   version "1.7.0"
@@ -6201,6 +6206,11 @@ parent-module@^1.0.0:
   dependencies:
     callsites "^3.0.0"
 
+parent-require@^1.0.0:
+  version "1.0.0"
+  resolved "https://yarn.btcore.app/parent-require/-/parent-require-1.0.0.tgz#746a167638083a860b0eef6732cb27ed46c32977"
+  integrity sha1-dGoWdjgIOoYLDu9nMssn7UbDKXc=
+
 parse-github-repo-url@^1.3.0:
   version "1.4.1"
   resolved "https://yarn.btcore.app/parse-github-repo-url/-/parse-github-repo-url-1.4.1.tgz#9e7d8bb252a6cb6ba42595060b7bf6df3dbc1f50"
@@ -8233,6 +8243,15 @@ yallist@^3.0.0, yallist@^3.0.2:
   version "3.0.3"
   resolved "https://yarn.btcore.app/yallist/-/yallist-3.0.3.tgz#b4b049e314be545e3ce802236d6cd22cd91c3de9"
   integrity sha512-S+Zk8DEWE6oKpV+vI3qWkaK+jSbIK86pCwe2IF/xwIpQ8jEuxpw9NyaGjmp9+BoJv5FV2piqCDcoCtStppiq2A==
+
+yargonaut@^1.1.4:
+  version "1.1.4"
+  resolved "https://yarn.btcore.app/yargonaut/-/yargonaut-1.1.4.tgz#c64f56432c7465271221f53f5cc517890c3d6e0c"
+  integrity sha512-rHgFmbgXAAzl+1nngqOcwEljqHGG9uUZoPjsdZEs1w5JW9RXYzrSvH/u70C1JE5qFi0qjsdhnUX/dJRpWqitSA==
+  dependencies:
+    chalk "^1.1.1"
+    figlet "^1.1.1"
+    parent-require "^1.0.0"
 
 yargs-parser@10.x:
   version "10.1.0"

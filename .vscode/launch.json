@@ -26,6 +26,28 @@
       "console": "integratedTerminal"
     },
     {
+      "type": "node",
+      "request": "launch",
+      "name": "shell/version (ts-node)",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "node",
+      "remoteRoot": "${workspaceFolder}",
+      "localRoot": "${workspaceFolder}",
+      "runtimeArgs": [
+        "--nolazy",
+        "-r",
+        "ts-node/register",
+      ],
+      "args": [
+        "${workspaceFolder}/packages/shell/bin/shell.ts",
+        "version"
+      ],
+      "env": {},
+      "sourceMaps": true,
+      "internalConsoleOptions": "neverOpen",
+      "console": "integratedTerminal"
+    },
+    {
       "name": "Debug Jest Tests (Locally)",
       "type": "node",
       "request": "launch",

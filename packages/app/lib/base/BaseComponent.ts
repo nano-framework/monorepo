@@ -14,7 +14,7 @@ export abstract class BaseComponent<Type = Application> implements Component<Typ
    * @param options The component options (readonly)
    */
   public constructor(public readonly options: ComponentOptions = {}) {
-    this.logger = options.logger || Logger.getInstance();
+    this.logger = this.options.logger || Logger.getInstance();
   }
 
   /**
