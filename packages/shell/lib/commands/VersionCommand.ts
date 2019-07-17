@@ -32,6 +32,7 @@ export class VersionCommand extends BaseComponent implements yargs.CommandModule
 
   public async handler(argv): Promise<void> {
     // Fixes yargs bug with promises
+    // a
     // eslint-disable-next-line
     argv._promised_result = new Promise(async (resolve, reject) => {
       try {
