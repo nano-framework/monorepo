@@ -19,7 +19,8 @@
     "clean": "lerna run clean",
     "postclean": "lerna clean -y",
     "test": "jest --config jest.json",
-    "precommit": "lerna run --concurrency 1 --stream precommit --since HEAD"
+    "precommit": "lerna run --concurrency 1 --stream precommit --since HEAD",
+    "prepublishOnly": "yarn build -s"
   },
   "husky": {
     "hooks": {
