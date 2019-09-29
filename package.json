@@ -19,7 +19,8 @@
     "clean": "lerna run clean",
     "postclean": "lerna clean -y",
     "test": "jest --config jest.json",
-    "precommit": "lerna run --concurrency 1 --stream precommit --since HEAD"
+    "precommit": "lerna run --concurrency 1 --stream precommit --since HEAD",
+    "prepublishOnly": "yarn build -s"
   },
   "husky": {
     "hooks": {
@@ -30,15 +31,16 @@
   "devDependencies": {
     "@types/jest": "^24.0.13",
     "@types/node": "^12.0.2",
-    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.0.0",
     "commitizen": "^3.1.1",
-    "eslint": "^6.0.1",
-    "eslint-config-airbnb-typescript": "^4.0.1",
-    "eslint-config-prettier": "^6.0.0",
+    "eslint": "^6.5.0",
+    "eslint-config-airbnb-typescript": "^5.0.0",
+    "eslint-config-prettier": "^6.3.0",
     "eslint-import-resolver-lerna": "^1.1.0",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-jest": "^22.7.2",
-    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.17.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-security": "^1.4.0",
     "husky": "^3.0.0",
     "jest": "^24.8.0",
