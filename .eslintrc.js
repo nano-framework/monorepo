@@ -38,6 +38,8 @@ module.exports = {
     'prettier/prettier': ['error', { 'tabWidth': 2 }], // Change prettier tab width to 2
 
     // WARNING OVERRIDES
+    'no-useless-constructor': 'warn', // We use this for typing constructor options
+    'no-empty-function': 'warn', // We use this for typing constructor options
     'import/first': 'warn', // Warns if imports aren't at the start of the file
     'import/no-cycle': 'warn', // Warns if you are using circle dependencies
     'no-underscore-dangle': 'warn', // Flexible underscore usage

@@ -1,4 +1,6 @@
+import 'reflect-metadata';
+
 export * from './components';
-export * from './controllers';
 export * from './middlewares';
-export * from './Server';
+export * from './decorators';
+export * from './server';
