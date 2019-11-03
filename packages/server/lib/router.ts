@@ -1,27 +1,16 @@
+import { BaseError, LoggerInstance } from '@nano/errors';
+import { plainToClass } from 'class-transformer';
 import { NextFunction } from 'connect';
 import * as express from 'express';
 import { isFunction } from 'util';
-import { BaseError } from '@nano/errors';
-import {
-  CONSTRUCTOR_PARAMTYPES_KEY,
-  CONTROLLER_ROUTE_METADATA_STORAGE,
-  METHOD_ROUTE_METADATA_STORAGE,
-  ROUTE_HANDLER_PARAMTYPES_KEY,
-} from './constants';
-import {
-  ControllerRouteMetadata,
-  ProviderIntf,
-  MethodRouteMetadata,
-  RequestMethod,
-  RequestParam,
-  RouteHandlerParamTypesMetadata,
-} from './decorators';
+import { CONSTRUCTOR_PARAMTYPES_KEY, CONTROLLER_ROUTE_METADATA_STORAGE, METHOD_ROUTE_METADATA_STORAGE, ROUTE_HANDLER_PARAMTYPES_KEY } from './constants';
+import { ControllerRouteMetadata, MethodRouteMetadata, ProviderIntf, RequestMethod, RequestParam, RouteHandlerParamTypesMetadata } from './decorators';
 import { BaseRequest, BaseResponse } from './server';
 import { joinPaths } from './utils';
 
 export type ControllerClass<T = any> = new (...args: any[]) => T;
 
-export class RouterError extends BaseError {}
+export class RouterError extends BaseError { }
 
 export interface RouteData {
   method: RequestMethod;
@@ -70,16 +59,19 @@ function matchParamTypeToValue(
   req: express.Request,
   res: express.Response,
   data?: string,
+  constructorClass?: new (...params: any[]) => any,
 ): object | string {
+  const getClass = (d: any) => constructorClass ? plainToClass(constructorClass, d) : d;
+
   switch (type) {
     case 'body':
-      return data ? req.body[data] : req.body;
+      return data ? req.body[data] : getClass(req.body);
     case 'headers':
-      return data ? (req.headers[data] as object) : req.headers;
+      return data ? (req.headers[data] as object) : getClass(req.headers);
     case 'params':
-      return data ? req.params[data] : req.params;
+      return data ? req.params[data] : getClass(req.params);
     case 'query':
-      return data ? req.query[data] : req.query;
+      return data ? req.query[data] : getClass(req.query);
     case 'request':
       return req;
     case 'response':
@@ -105,7 +97,7 @@ function buildHandlerParameters(
       const sort = a.index > b.index ? 1 : -1;
       return a.index === b.index ? 0 : sort;
     })
-    .map(metadata => matchParamTypeToValue(metadata.type, req, res, metadata.data));
+    .map(metadata => matchParamTypeToValue(metadata.type, req, res, metadata.data, metadata.constructorClass));
 }
 
 function createRouteHandlerWrapper(instance: Record<string, any>, fnName: string) {
@@ -130,7 +122,7 @@ function createRouteHandlerWrapper(instance: Record<string, any>, fnName: string
   };
 }
 
-export function registerRoutes(app: express.Application, controllers: ControllerClass[]) {
+export function registerRoutes(app: express.Application, controllers: ControllerClass[], logger?: LoggerInstance): void {
   controllers.forEach(ControllerClassItem => {
     const controllerRouteData = buildRouteData(ControllerClassItem);
     const controllerParamTypes: ProviderIntf[] =
@@ -155,7 +147,9 @@ export function registerRoutes(app: express.Application, controllers: Controller
         createRouteHandlerWrapper(instance, fnName),
       ];
 
-      console.log(`Registering route ${method.toUpperCase()} ${path}`);
+      if (logger) {
+        logger.silly(`Registering route ${method.toUpperCase()} ${path}`);
+      }
       registrationMethod(path, middlewareChain);
     });
   });
