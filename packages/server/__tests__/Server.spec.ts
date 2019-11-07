@@ -19,7 +19,7 @@ class TestController {
 
   @Post('/echo/text')
   public async echoText(@Res() res) {
-    return res
+    res
       .status(200)
       .set('Content-type', 'plain/text')
       .send('test');

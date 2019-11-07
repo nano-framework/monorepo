@@ -2,7 +2,7 @@ import { Logger } from '@nano/errors';
 import * as getPort from 'get-port';
 import 'reflect-metadata';
 import * as request from 'supertest';
-import { Controller, Get, Query, RequestComponent, RouterComponent, Server } from '../../lib';
+import { Controller, Get, Query, RequestComponent, RouterComponent, Server, Injectable } from '../../lib';
 
 Logger.initialize();
 
