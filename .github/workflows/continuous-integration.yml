@@ -12,6 +12,6 @@ jobs:
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: bootstrap
-      - uses: borales/actions-yarn@v2.0.0
+      - uses: stefanoeb/jest-action@master
         with:
-          cmd: test
+          args: --force-exit --config jest.json
