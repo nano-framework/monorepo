@@ -18,7 +18,7 @@
     "bootstrap": "lerna bootstrap && yarn run -s build",
     "clean": "lerna run clean",
     "postclean": "lerna clean -y",
-    "test": "jest --force-exit --config jest.json",
+    "test": "jest --config jest.json",
     "precommit": "lerna run --concurrency 1 --stream precommit --since HEAD"
   },
   "husky": {
