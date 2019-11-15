@@ -10,16 +10,14 @@
   },
   "directories": {
     "lib": "lib",
+    "dist": "dist",
     "test": "__tests__",
-    "examples": "examples"
+    "examples": "example"
   },
   "files": [
     "lib",
-    "examples"
+    "dist"
   ],
-  "publishConfig": {
-    "registry": "https://yarn.btcore.app/"
-  },
   "scripts": {
     "build": "tsc",
     "bin": "ts-node bin/shell",

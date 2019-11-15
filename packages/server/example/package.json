@@ -1,0 +1,39 @@
+{
+  "name": "@nano/server-example",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "author": "Luis Brito <luis@nxtep.io>",
+  "license": "MIT",
+  "private": true,
+  "directories": {
+    "lib": "lib",
+    "dist": "dist",
+    "test": "__tests__",
+    "examples": "example"
+  },
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf ./node_modules ./dist",
+    "precommit": "lint-staged",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.7",
+    "eslint": "^6.6.0",
+    "get-port": "^5.0.0",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.4.3",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.5.2",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  }
+}

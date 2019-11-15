@@ -7,16 +7,13 @@
   "main": "dist/index.js",
   "directories": {
     "lib": "lib",
-    "test": "__tests__",
-    "examples": "examples"
+    "dist": "dist",
+    "test": "__tests__"
   },
   "files": [
     "lib",
-    "examples"
+    "dist"
   ],
-  "publishConfig": {
-    "registry": "https://yarn.btcore.app"
-  },
   "scripts": {
     "build": "tsc",
     "clean": "rimraf ./node_modules ./dist",

@@ -6,19 +6,21 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as methodOverride from 'method-override';
 import { legacyParams } from '../middlewares';
-import { Server } from '../Server';
+import { Server } from '../server';
+
+export type RequestBodyParserOptions =
+  | false
+  | {
+      text?: bodyParser.OptionsText;
+      json?: bodyParser.OptionsJson;
+      urlencoded?: bodyParser.OptionsUrlencoded;
+    };
 
 export interface RequestComponentOptions extends ComponentOptions {
   logger?: LoggerInstance;
   cookieParser?: false | (cookieParser.CookieParseOptions & { secret: string });
   methodOverride?: false | methodOverride.Options;
-  bodyParser?:
-    | false
-    | {
-        text?: bodyParser.OptionsText;
-        json?: bodyParser.OptionsJson;
-        urlencoded?: bodyParser.OptionsUrlencoded;
-      };
+  bodyParser?: RequestBodyParserOptions;
   // multer?: {
   //   single?: string;
   //   array?: { name: string; maxCount: number };
@@ -43,7 +45,7 @@ export class RequestComponent implements Component {
   public onMount(server: Server) {
     // Mount body parser as default, unless is disabled from outside
     if (this.options.bodyParser !== false) {
-      const options = { ...this.options.bodyParser };
+      const options: RequestBodyParserOptions = { ...this.options.bodyParser };
       this.logger.debug(`${this.options.name} initializing middleware: BodyParser`, options);
 
       // Handle Text body parser configuration as default
