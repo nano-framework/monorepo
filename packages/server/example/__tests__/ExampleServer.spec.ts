@@ -22,7 +22,7 @@ describe('lib.server.examples.ExampleServer', () => {
 
     it('should respond to a simple GET request', async () => {
       await request(server.express)
-        .get('/')
+        .get('/hello')
         .query({ name: 'John Doe' })
         .expect(200, { message: 'Hello John Doe!' });
     });

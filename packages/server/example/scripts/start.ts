@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { ExampleServer } from '../api';
 
 export const server = new ExampleServer();

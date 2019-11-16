@@ -1,6 +1,6 @@
 import { Get, Controller, Query } from '../lib';
 
-@Controller('/')
+@Controller('/hello')
 export class HelloWorldController {
   @Get('/')
   public async hello(@Query('name') name = 'world') {
