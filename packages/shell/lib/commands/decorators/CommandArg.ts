@@ -1,9 +1,10 @@
 import { COMMAND_ARGS_METADATA_STORAGE } from '../constants';
 
 export interface CommandArgMetadata {
-  alias?: string[];
   default?: string;
   describe?: string;
+  alias?: string[];
+  choices?: string[];
 }
 
 export function CommandArg(key: string, options: CommandArgMetadata = {}): ClassDecorator {

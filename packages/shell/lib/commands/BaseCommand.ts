@@ -18,13 +18,12 @@ export abstract class BaseCommand<Options = any, Result = any> extends BaseCompo
     super(options);
 
     // Build command from reflection metadata
-    console.log(this.constructor.name);
-    const metadata = Reflect.getMetadata(COMMAND_ACTION_METADATA_STORAGE, this.constructor);
+    const metadata = Reflect.getMetadata(COMMAND_ACTION_METADATA_STORAGE, this.constructor) || {};
     this.command = metadata.action;
     this.describe = metadata.describe || '';
 
     // Build command arguments from reflection metadata
-    const argsMetadata = Reflect.getMetadata(COMMAND_ARGS_METADATA_STORAGE, this.constructor);
+    const argsMetadata = Reflect.getMetadata(COMMAND_ARGS_METADATA_STORAGE, this.constructor) || {};
     Object.keys(argsMetadata).map(name => {
       if (typeof this.builder === 'function') {
         // TODO
