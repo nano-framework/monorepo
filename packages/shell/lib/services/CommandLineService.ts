@@ -42,9 +42,7 @@ export class CommandLineService extends BaseComponent {
         if (!hasResolved && code === 0) {
           resolve({ stdout, stderr, code });
         } else if (!hasResolved) {
-          const e = new Error('Unknown spawn error');
-          e.code = code;
-          reject(e);
+          reject(new Error(`Unknown spawn error: code ${code}`));
         }
       });
     });
