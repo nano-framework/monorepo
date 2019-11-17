@@ -44,8 +44,14 @@ export class CommandLine extends Application {
     // Prepare logger and initial yargs instance
     this.yargs = yargs.usage('Usage: $0 <command> [...args]').wrap(maxWidth);
 
-    // Base script name
-    this.yargs.scriptName(this.options.name);
+    // Prepare verbose option
+    this.yargs
+      .scriptName(this.options.name)
+      .recommendCommands()
+      .demandCommand(1)
+      .strict()
+      .help('h')
+      .alias('h', 'help');
 
     // Continue with children mounting
     super.onMount();
@@ -68,30 +74,10 @@ export class CommandLine extends Application {
     // Spacing between logs and output
     console.log(' ');
 
-    // Prepare verbose option
-    this.yargs
-      .boolean('verbose')
-      .alias('V', 'verbose')
-      .describe('verbose', 'Runs command in verbose mode');
-
     // eslint-disable-next-line
-    await new Promise((resolve, reject) => this.yargs
-        .recommendCommands()
-        .demandCommand(1)
-        .help('h')
-        .alias('h', 'help')
-        .alias('v', 'version')
-        .parse(process.argv.slice(2, process.argv.length), async (error, argv, output) => {
-          if (argv._promised_result) {
-            await argv._promised_result;
-          }
-
-          if (error) {
-            reject(error);
-          } else {
-            resolve(output);
-          }
-        }),
-    );
+    this.yargs
+      .help('h')
+      .alias('h', 'help')
+      .alias('v', 'version').argv;
   }
 }

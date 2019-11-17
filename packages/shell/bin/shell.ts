@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* eslint-disable */
 require('source-map-support').install();
-const { CommandLine } = require('../lib/CommandLine');
+const { CommandLine } = require('../lib');
 const Package = require('../../../package');
 const cmd = new CommandLine({ version: Package.version });
 
