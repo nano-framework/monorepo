@@ -29,18 +29,4 @@ describe('lib.shell.example.PasswordGenerator', () => {
     expect(raw.password).toHaveLength(12);
     expect(code).toBe(0);
   });
-
-  it('should generate password using remote randomness lib', async () => {
-    const cmd = new CommandLineService({});
-
-    const { stdout, code } = await cmd.spawn('yarn', ['run', '-s', 'bin', 'random', '-o', 'json', '-l', '14'], {
-      cwd: join(__dirname, '../'),
-      env: { ...process.env, LOG_LEVEL: 'info' },
-    });
-
-    const raw = JSON.parse(stdout);
-    expect(raw).toHaveProperty('password');
-    expect(raw.password).toHaveLength(14);
-    expect(code).toBe(0);
-  });
 });

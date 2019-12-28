@@ -9,9 +9,13 @@ export class BaseErrorDetails {
   [key: string]: any;
 
   public constructor(data: { [key: string]: any } = {}) {
-    Object.keys(data).map(key => {
-      this[key] = data[key];
-    });
+    if (data instanceof Array) {
+      this.data = data;
+    } else {
+      Object.keys(data).map(key => {
+        this[key] = data[key];
+      });
+    }
   }
 }
 
