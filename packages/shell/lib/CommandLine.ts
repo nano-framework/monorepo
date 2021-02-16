@@ -1,7 +1,7 @@
 import { Application, ApplicationOptions } from '@nano/app';
 import { BaseError } from '@nano/errors';
 import * as yargs from 'yargs';
-import * as Commands from './commands';
+import { BaseCommand } from './commands';
 
 // TODO: Move to config
 export const DEFAULT_COLUMN_WIDTH = 120;
@@ -13,24 +13,15 @@ export interface CommandLineOptions extends ApplicationOptions {
   name?: string;
   /** The max columns in the terminal output. */
   maxWidth?: number;
-  /** The commands to be bound to the Yargs instance */
-  commands?: (new () => yargs.CommandModule)[];
 }
 
 export class CommandLine extends Application {
-  public static DEFAULT_COMMANDS = [Commands.VersionCommand];
-
   public yargs: yargs.Argv;
 
   public options: CommandLineOptions;
 
-  public constructor({ commands, ...options }: CommandLineOptions = {}) {
-    // eslint-disable-next-line
-    super({
-      name: 'nano',
-      commands: commands || CommandLine.DEFAULT_COMMANDS,
-      ...options,
-    } as ApplicationOptions);
+  public constructor(options: CommandLineOptions = {}) {
+    super({ name: 'nano', ...options });
     this.options.maxWidth = this.options.maxWidth || DEFAULT_COLUMN_WIDTH;
   }
 
@@ -44,8 +35,14 @@ export class CommandLine extends Application {
     // Prepare logger and initial yargs instance
     this.yargs = yargs.usage('Usage: $0 <command> [...args]').wrap(maxWidth);
 
-    // Base script name
-    this.yargs.scriptName(this.options.name);
+    // Prepare verbose option
+    this.yargs
+      .scriptName(this.options.name)
+      .recommendCommands()
+      .demandCommand(1)
+      .strict()
+      .help('h')
+      .alias('h', 'help');
 
     // Continue with children mounting
     super.onMount();
@@ -57,41 +54,26 @@ export class CommandLine extends Application {
   public async onInit() {
     await super.onInit();
 
-    if (!this.options.commands || !this.options.commands.length) {
-      throw new CommandLineError('No commands were bound to the command line instance');
+    const commands = this.children.filter(item => item instanceof BaseCommand);
+
+    if (!commands || !commands.length) {
+      throw new CommandLineError('No commands were bound to the command line instance, check your child components');
     }
 
     // Initialize all child commands
-    const commands = this.options.commands || [];
-    commands.map((Command: any) => this.yargs.command(new Command({ logger: this.logger })));
+    commands.map((cmd: BaseCommand) => {
+      // eslint-disable-next-line
+      cmd.handler = cmd.handler.bind(cmd);
+      this.yargs.command(cmd);
+    });
 
     // Spacing between logs and output
     console.log(' ');
 
-    // Prepare verbose option
-    this.yargs
-      .boolean('verbose')
-      .alias('V', 'verbose')
-      .describe('verbose', 'Runs command in verbose mode');
-
     // eslint-disable-next-line
-    await new Promise((resolve, reject) => this.yargs
-        .recommendCommands()
-        .demandCommand(1)
-        .help('h')
-        .alias('h', 'help')
-        .alias('v', 'version')
-        .parse(process.argv.slice(2, process.argv.length), async (error, argv, output) => {
-          if (argv._promised_result) {
-            await argv._promised_result;
-          }
-
-          if (error) {
-            reject(error);
-          } else {
-            resolve(output);
-          }
-        }),
-    );
+    this.yargs
+      .help('h')
+      .alias('h', 'help')
+      .alias('v', 'version').argv;
   }
 }

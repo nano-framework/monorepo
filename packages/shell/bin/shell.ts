@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /* eslint-disable */
 require('source-map-support').install();
-const { CommandLine } = require('../lib/CommandLine');
+const { NanoShell } = require('../lib');
 const Package = require('../../../package');
-const cmd = new CommandLine({ version: Package.version });
+const cmd = new NanoShell({ version: Package.version });
 
 cmd
   .start()
@@ -12,5 +12,5 @@ cmd
     console.log(' ');
 
     cmd.logger.error(error);
-    // process.exit(1);
+    process.exit(1);
   })
