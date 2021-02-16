@@ -23,11 +23,13 @@
       "esnext"
     ],
     "paths": {
-      "@nano/*": ["./packages/*/lib"]
+      "@nano/*": [
+        "./packages/*/lib"
+      ]
     }
   },
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
   ]
- }
+}

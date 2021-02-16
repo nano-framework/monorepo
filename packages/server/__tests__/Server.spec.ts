@@ -1,34 +1,81 @@
-import * as request from 'supertest';
 import * as getPort from 'get-port';
-import { Server, BaseRequest, BaseResponse, Get, BaseController } from '../lib';
+import 'reflect-metadata';
+import * as request from 'supertest';
+import { Body, Controller, Get, Post, Query, RouterComponent, Res, Server, RequestComponent } from '../lib';
 
 class TestServer extends Server {}
 
-class TestController extends BaseController {
+@Controller()
+class TestController {
   @Get('/echo')
-  public static echo(req: BaseRequest, res: BaseResponse) {
-    res.json({ body: req.body });
+  public async echo(@Query() query: any) {
+    return query;
+  }
+
+  @Post('/echo')
+  public async echoBody(@Body() body: any) {
+    return body;
+  }
+
+  @Post('/echo/text')
+  public async echoText(@Res() res) {
+    res
+      .status(200)
+      .set('Content-type', 'plain/text')
+      .send('test');
   }
 }
 
 describe('lib.server.Server', () => {
-  it('should not respond on an invalid port', async () => {
-    const server = new TestServer({ port: -1 });
-    await expect(server.start()).rejects.toThrow(/Received -1/gi);
-  });
+  let server: Server;
 
-  it('should respond to a simple status request', async () => {
-    // Construct server with a random available port
-    const server = new TestServer({
-      port: await getPort(),
-      children: [new TestController()],
+  describe('with invalid server', () => {
+    beforeEach(async () => {
+      server = new TestServer({ port: -1 });
     });
 
-    // Start server and perform a simple 404 request
-    await server.start();
-    await request(server.express)
-      .get('/echo')
-      .expect(200);
-    await server.stop();
+    it('should not respond on an invalid port', async () => {
+      await expect(server.start()).rejects.toThrow(/Received -1/gi);
+    });
+  });
+
+  describe('with started server', () => {
+    beforeEach(async () => {
+      server = new TestServer({
+        port: await getPort(),
+        children: [new RequestComponent(), new RouterComponent({ controllers: [TestController] })],
+      });
+
+      await server.start();
+    });
+
+    afterEach(async () => {
+      if (server) {
+        await server.stop();
+        server = undefined;
+      }
+    });
+
+    it('should respond to a simple GET request', async () => {
+      await request(server.express)
+        .get('/echo')
+        .query({ test: '123' })
+        .expect(200, { test: '123' });
+    });
+
+    it('should respond to a simple POST request', async () => {
+      await request(server.express)
+        .post('/echo')
+        .send({ test: 123 })
+        .expect(200, { test: 123 });
+    });
+    it('should respond to a simple GET request with a plain text response', async () => {
+      const response = await request(server.express)
+        .post('/echo/text')
+        .expect(200, 'test');
+
+      expect(response.header).toHaveProperty('content-type');
+      expect(response.header['content-type'].startsWith('plain/text')).toBeTruthy();
+    });
   });
 });

@@ -1,4 +1,4 @@
-import { ExampleApplication } from '../examples/simple';
+import { ExampleApplication } from '../example/simple';
 
 jest.useFakeTimers();
 
